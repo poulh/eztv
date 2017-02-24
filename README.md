@@ -1,7 +1,7 @@
 # P3::Eztv
 [![Gem Version](https://badge.fury.io/rb/p3-eztv.svg)](http://badge.fury.io/rb/p3-eztv)
 
-A Ruby scraper as a substitution for the catastrophic [EZTV](http://eztv.it/) API. It is not using the RSS feed since it doesn't work well, so it scrapes the search results.
+EZTV Search API: Parses EZTV.ag's HTML as they do not have a clean REST API
 
 ## Installation
 
