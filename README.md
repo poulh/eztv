@@ -1,32 +1,19 @@
-# EZTV
-[![Build Status](https://travis-ci.org/DamirSvrtan/eztv.svg?branch=master)](https://travis-ci.org/DamirSvrtan/eztv)
-[![Gem Version](https://badge.fury.io/rb/eztv.svg)](http://badge.fury.io/rb/eztv)
-[![Dependencies Status](https://gemnasium.com/DamirSvrtan/eztv.png)](https://gemnasium.com/DamirSvrtan/eztv)
-[![Code Climate](https://codeclimate.com/github/DamirSvrtan/eztv.png)](https://codeclimate.com/github/DamirSvrtan/eztv)
+# P3::EZTV
+[![Gem Version](https://badge.fury.io/rb/p3-eztv.svg)](http://badge.fury.io/rb/p3-eztv)
 
 A Ruby scraper as a substitution for the catastrophic [EZTV](http://eztv.it/) API. It is not using the RSS feed since it doesn't work well, so it scrapes the search results.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'eztv'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install eztv
+    $ gem install p3-eztv
 
 ## Usage
 
 Fetch a series and get all the magnet links:
 ```ruby
-require 'eztv'
+require 'p3-eztv'
 
-white_collar = EZTV::Series.new("white collar")
+white_collar = P3::Eztv::Series.new("white collar")
 
 white_collar.episodes.each do |episode|
   puts episode.magnet_link
@@ -59,14 +46,14 @@ white_collar.episodes.last.s01e01_format
 Fetch an episode in S01E01 format:
 ```ruby
 white_collar.get('S03E05')
-# EZTV::Episode.new
+# P3::Eztv::Episode.new
 ```
 There will be an error raised if you browsed for a non existing series:
 ```ruby
-nonny = EZTV::Series.new("nonny")
+nonny = P3::Eztv::Series.new("nonny")
 begin
   nonny.episodes
-rescue EZTV::SeriesNotFoundError => e
+rescue P3::Eztv::SeriesNotFoundError => e
   puts e.message 
   # "Unable to find 'nonny' on https://eztv.it."
 end
