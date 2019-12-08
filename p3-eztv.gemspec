@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "p3-eztv"
-  spec.version       = "0.0.8"
+  spec.version       = "0.0.9"
   spec.authors       = ["Damir Svrtan", "Poul Hornsleth"]
   spec.email         = ["poulh@umich.edu"]
   spec.summary       = "EZTV Search API"
@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "nokogiri", "~> 1.6.8.1"
-  spec.add_runtime_dependency "httparty", "~> 0.13.7"
+  spec.add_runtime_dependency "nokogiri", "~> 1.6"
+  spec.add_runtime_dependency "httparty", "~> 0.13"
 
 end

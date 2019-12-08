@@ -9,13 +9,14 @@ EZTV Search API: Parses EZTV.ag's HTML as they do not have a clean REST API
 
 ## Usage
 
-Fetch a series and get all the magnet links:
+Search for a series and get all the magnet links:
 ```ruby
 require 'p3-eztv'
 
-white_collar = P3::Eztv::Series.new("white collar")
+white_collar = P3::Eztv::Search.new("white collar")
 
-white_collar.episodes.each do |episode|
+# uniq uniques by season/episode numbers
+white_collar.episodes.uniq.each do |episode|
   puts episode.magnet_link
 end
 ```
@@ -50,10 +51,10 @@ white_collar.get('S03E05')
 ```
 There will be an error raised if you browsed for a non existing series:
 ```ruby
-nonny = P3::Eztv::Series.new("nonny")
+nonny = P3::Eztv::Search.new("nonny")
 begin
   nonny.episodes
-rescue P3::Eztv::SeriesNotFoundError => e
+rescue P3::Eztv::SearchNotFoundError => e
   puts e.message 
   # "Unable to find 'nonny' on https://eztv.it."
 end

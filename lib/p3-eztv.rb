@@ -7,14 +7,14 @@ module P3
         SE_FORMAT = "S(\\d{1,2})E(\\d{1,2})"
         X_FORMAT = "(\\d{1,2})x(\\d{1,2})"
 
-        class SeriesNotFoundError < StandardError
-            def initialize(series)
-                msg = "Unable to find '#{series.search_string()}' on https://eztv.ag."
+        class SearchNotFoundError < StandardError
+            def initialize(search)
+                msg = "Unable to find '#{search.search_string()}' on https://eztv.ag."
                 super(msg)
             end
         end
 
-        class Series
+        class Search
             include HTTParty
             attr_reader :name, :high_def
             EPISODES_XPATH = '//*[@id="header_holder"]/table[5]'
@@ -25,7 +25,7 @@ module P3
                 @name = name
                 @high_def = false
             end
-
+          
             def high_def!
                 @high_def = true
             end
@@ -65,7 +65,7 @@ module P3
             def fetch_episodes
 
                 # 'get' method comes from httparty
-                result = Series::get("/search/#{self.search_string()}")
+                result = Search::get("/search/#{self.search_string()}")
 
                 document = Nokogiri::HTML(result)
 
@@ -74,7 +74,7 @@ module P3
                 episodes_array = episodes_array.children
                 episodes_array = episodes_array.select{ | episode | episode.attributes['class'].to_s == 'forum_header_border' }
 
-                raise SeriesNotFoundError.new(self) if episodes_array.empty?
+                raise SearchNotFoundError.new(self) if episodes_array.empty?
 
                 return episodes_array
             end
@@ -94,7 +94,7 @@ module P3
                     rescue
                     end
                 end
-                return episodes.uniq
+                return episodes
             end
         end
 
