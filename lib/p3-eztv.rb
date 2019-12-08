@@ -21,18 +21,18 @@ module P3
 
             base_uri 'http://eztv.ag'
 
-            def initialize(name)
-                @name = name
-                @high_def = false
+            def initialize(phrase)
+                @phrase = phrase
+                @high_def_term = false
             end
           
-            def high_def!
-                @high_def = true
+            def high_def!(term)
+                @high_def_term = term
             end
 
             def search_string
-                search =  @high_def ? "#{@name} 720p" : @name
-                return URI::escape( search )
+                search_term = "#{@phrase} #{@high_def_term}"
+                return URI::escape( search_term )
             end
 
             def episodes
@@ -116,6 +116,10 @@ module P3
 
             def hash
                 [episode_number, season].hash
+            end
+
+            def <=>(other)
+                return self.s01e01_format <=> other.s01e01_format
             end
 
             private
